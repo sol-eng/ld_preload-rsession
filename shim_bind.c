@@ -1,7 +1,7 @@
 /*
  * capture calls to a routine and replace with your code
  * http://unix.stackexchange.com/a/305336/119298
- * gcc -Wall -O2 -fpic -shared -ldl -o shim_bind.so shim_bind.c
+ * gcc -Wall -O2 -fpic -shared shim_bind.so shim_bind.c -ldl
  * LD_PRELOAD=/path/to/shim_bind.so ./test
  */
 #define _GNU_SOURCE /* needed to get RTLD_NEXT defined in dlfcn.h */
@@ -13,6 +13,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <time.h>
 
 int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen){
     static int (*real_bind)(int sockfd, const struct sockaddr *addr,
@@ -20,6 +21,7 @@ int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen){
     int lower = 59000;
     int upper = 59999; 
 
+    //srand(time(NULL));
     int port = (rand() % (upper - lower + 1)) + lower;
 
     //int port = 7777;
