@@ -23,5 +23,10 @@ Within RStudio you can check if LD_PRELOAD works via
 ```
 Sys.getenv("LD_PRELOAD") 
 ```
+Finally you can check the port used by running in an RStudio terminal 
+```
+netstat -Ainet | grep ESTABLISHED
+```
+where you should see one connection between the client note and the RSW server that uses port 59xxx on the client side. 
 
 Note: If you would like to use another directory than `/etc/rstudio`, please consider the approach described in [the Admin Guide](https://docs.rstudio.com/ide/server-pro/server_management/core_administrative_tasks.html#alternate-configuration-file-location) 
