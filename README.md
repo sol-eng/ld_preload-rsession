@@ -8,22 +8,24 @@
 
 ## Sanity checking
 
-First, run in a terminal/shell session 
+1. Run in a terminal/shell session 
 ```
 ldd /path/to/shim_bind.so
 ```
 This should report 4 libraries, most importantly `libdl.so.2`.  
 
-Furthermore you can check if port binding works by running  
+2. Furthermore you can check if port binding works by running  
 ```
 LD_PRELOAD=/path/to/shim_bind.so nc -l -p 1234
 ```
 This should make nc listen on port 1234. Since it is run against `LD_PRELOAD` it is forced to use a port from the port range, i.e. 59000...59999 in the example. 
-Within RStudio you can check if LD_PRELOAD works via 
+
+3. Within RStudio you can check if LD_PRELOAD works via 
 ```
 Sys.getenv("LD_PRELOAD") 
 ```
-Finally you can check the port used by running in an RStudio terminal 
+
+4. Finally you can check the port used by running in an RStudio terminal 
 ```
 netstat -Ainet | grep ESTABLISHED
 ```
